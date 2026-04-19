@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>77 Serviços Automotivos | Oficina em BH</title>
-<meta name="description" content="Oficina automotiva em Belo Horizonte. Revisão, diagnóstico, suspensão, freios e muito mais. Atendimento profissional com preço justo.">
+<title>77 Serviços Automotivos</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -24,19 +23,18 @@ header {
   align-items: center;
   padding: 15px 20px;
   background: #08152b;
-  position: sticky;
-  top: 0;
 }
 
 header img {
-  height: 50px;
+  height: 60px;
 }
 
+/* BOTÃO */
 .btn {
   background: #00c853;
   color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
+  padding: 12px 18px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -47,6 +45,7 @@ header img {
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
   url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
   background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,47 +53,20 @@ header img {
 }
 
 .hero h1 {
-  font-size: 38px;
+  font-size: 36px;
 }
 
 .hero p {
   font-size: 18px;
-  margin: 15px 0;
 }
 
-/* SEÇÕES */
+/* SEÇÃO */
 .section {
   padding: 60px 20px;
   text-align: center;
 }
 
-.section h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-/* DIFERENCIAIS */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #08152b;
-  padding: 20px;
-  border-radius: 10px;
-}
-
 /* SOBRE */
-.sobre {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
 .sobre img {
   max-width: 400px;
   border-radius: 10px;
@@ -104,19 +76,6 @@ header img {
 .servicos img {
   max-width: 900px;
   border-radius: 12px;
-}
-
-/* DEPOIMENTOS */
-.depoimentos {
-  display: grid;
-  gap: 20px;
-}
-
-.depoimento {
-  background: #08152b;
-  padding: 20px;
-  border-radius: 10px;
-  font-style: italic;
 }
 
 /* MAPA */
@@ -134,9 +93,9 @@ header img {
   background: #00c853;
   padding: 15px;
   border-radius: 50%;
+  color: white;
   font-size: 20px;
   text-decoration: none;
-  color: white;
 }
 
 .ligar {
@@ -146,15 +105,15 @@ header img {
   background: #2962ff;
   padding: 15px;
   border-radius: 50%;
+  color: white;
   font-size: 20px;
   text-decoration: none;
-  color: white;
 }
 
 /* FOOTER */
 footer {
   background: #08152b;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
 }
 </style>
@@ -165,38 +124,25 @@ footer {
 <!-- TOPO -->
 <header>
   <img src="74A83FC8-5EA8-44A1-9261-AAB64519876B.png">
-  <a class="btn" href="https://wa.me/5531973008091">WhatsApp</a>
+  <a class="btn" href="https://wa.me/5531973575782">WhatsApp</a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div>
     <h1>Seu carro em boas mãos</h1>
-    <p>Manutenção completa com padrão de concessionária</p>
-    <a class="btn" href="https://wa.me/5531973008091">Agendar agora</a>
-  </div>
-</section>
-
-<!-- DIFERENCIAIS -->
-<section class="section">
-  <h2>Por que escolher a 77?</h2>
-  <div class="grid">
-    <div class="card">✔ Diagnóstico preciso</div>
-    <div class="card">✔ Atendimento transparente</div>
-    <div class="card">✔ Peças de qualidade</div>
-    <div class="card">✔ Experiência profissional</div>
+    <p>Manutenção com padrão de concessionária</p>
+    <a class="btn" href="https://wa.me/5531973575782">Agendar agora</a>
   </div>
 </section>
 
 <!-- SOBRE -->
 <section class="section">
   <h2>Sobre a oficina</h2>
-  <div class="sobre">
-    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc">
-    <p style="max-width:400px;">
-      Especializada em manutenção automotiva multimarcas, com foco em qualidade, agilidade e confiança.
-    </p>
-  </div>
+  <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e">
+  <p>
+    Especializada em manutenção automotiva multimarcas, com foco em qualidade, agilidade e confiança.
+  </p>
 </section>
 
 <!-- SERVIÇOS -->
@@ -205,30 +151,21 @@ footer {
   <img src="3A30862C-0D2A-43A8-BBEF-B81331B4A27B.png">
 </section>
 
-<!-- DEPOIMENTOS -->
-<section class="section">
-  <h2>O que dizem nossos clientes</h2>
-  <div class="depoimentos">
-    <div class="depoimento">"Atendimento rápido e honesto. Recomendo demais!"</div>
-    <div class="depoimento">"Serviço de qualidade e preço justo."</div>
-    <div class="depoimento">"Melhor oficina que já levei meu carro."</div>
-  </div>
-</section>
-
 <!-- MAPA -->
 <section class="section mapa">
   <h2>Localização</h2>
-  <iframe src="https://www.google.com/maps?q=Belo+Horizonte&output=embed"></iframe>
+  <iframe src="https://www.google.com/maps?q=Rua+José+Júlio+de+Araújo+160+Belo+Horizonte&output=embed"></iframe>
 </section>
 
 <!-- BOTÕES -->
-<a class="whatsapp" href="https://wa.me/5531973008091">💬</a>
-<a class="ligar" href="tel:+5531973008091">📞</a>
+<a class="whatsapp" href="https://wa.me/5531973575782">💬</a>
+<a class="ligar" href="tel:+5531973575782">📞</a>
 
 <!-- FOOTER -->
 <footer>
-  © 2026 77 Serviços Automotivos <br>
-  Belo Horizonte - MG
+  © 2026 77 Serviços Automotivos<br>
+  Rua José Júlio de Araújo, 160<br>
+  Belo Horizonte - MG | CEP 30610-510
 </footer>
 
 </body>
