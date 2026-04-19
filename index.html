@@ -3,169 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>77 Car Service</title>
+
+<title>77 Serviços Automotivos | Oficina em BH</title>
+<meta name="description" content="Oficina automotiva em Belo Horizonte. Revisão, diagnóstico, suspensão, freios e muito mais. Atendimento profissional com preço justo.">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: #0b1d3a;
-    color: white;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #0b1d3a;
+  color: white;
+}
+
+/* TOPO */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #08152b;
+  position: sticky;
+  top: 0;
+}
+
+header img {
+  height: 50px;
+}
+
+.btn {
+  background: #00c853;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 /* HERO */
 .hero {
-    background: linear-gradient(rgba(11,29,58,0.8), rgba(11,29,58,0.9)),
-    url('https://i.imgur.com/SEU_LINK_FACHADA.jpg') center/cover;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
+  height: 90vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+  url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero h1 {
-    font-size: 40px;
-    max-width: 800px;
+  font-size: 38px;
 }
 
-.hero span {
-    color: #ffcc00;
-}
-
-/* BOTÃO */
-.btn {
-    margin-top: 25px;
-    display: inline-block;
-    background: #ffcc00;
-    color: black;
-    padding: 16px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 700;
+.hero p {
+  font-size: 18px;
+  margin: 15px 0;
 }
 
 /* SEÇÕES */
 .section {
-    padding: 70px 20px;
-    text-align: center;
+  padding: 60px 20px;
+  text-align: center;
 }
 
-.logo {
-    max-width: 200px;
-    margin-top: 20px;
+.section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
-/* CARDS */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+/* DIFERENCIAIS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
 }
 
 .card {
-    background: #112b55;
-    padding: 25px;
-    border-radius: 10px;
-    transition: 0.3s;
+  background: #08152b;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* SOBRE */
+.sobre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
-/* IMAGEM */
-.image {
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 30px;
+.sobre img {
+  max-width: 400px;
+  border-radius: 10px;
 }
 
-/* WHATSAPP */
+/* SERVIÇOS */
+.servicos img {
+  max-width: 900px;
+  border-radius: 12px;
+}
+
+/* DEPOIMENTOS */
+.depoimentos {
+  display: grid;
+  gap: 20px;
+}
+
+.depoimento {
+  background: #08152b;
+  padding: 20px;
+  border-radius: 10px;
+  font-style: italic;
+}
+
+/* MAPA */
+.mapa iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+
+/* BOTÕES FIXOS */
 .whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    padding: 15px;
-    border-radius: 50%;
-    text-decoration: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00c853;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.ligar {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: #2962ff;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+/* FOOTER */
+footer {
+  background: #08152b;
+  padding: 30px;
+  text-align: center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- TOPO -->
+<header>
+  <img src="74A83FC8-5EA8-44A1-9261-AAB64519876B.png">
+  <a class="btn" href="https://wa.me/5531973008091">WhatsApp</a>
+</header>
+
 <!-- HERO -->
 <section class="hero">
-<div>
-<h1>
-Seu carro no <span>padrão de concessionária</span><br>
-sem pagar preço de concessionária
-</h1>
-
-<a class="btn" href="https://wa.me/5531973575782?text=Quero%20agendar%20minha%20revisão">
-QUERO AGENDAR MINHA REVISÃO
-</a>
-</div>
+  <div>
+    <h1>Seu carro em boas mãos</h1>
+    <p>Manutenção completa com padrão de concessionária</p>
+    <a class="btn" href="https://wa.me/5531973008091">Agendar agora</a>
+  </div>
 </section>
 
-<!-- LOGO -->
+<!-- DIFERENCIAIS -->
 <section class="section">
-<h2>77 Car Service</h2>
+  <h2>Por que escolher a 77?</h2>
+  <div class="grid">
+    <div class="card">✔ Diagnóstico preciso</div>
+    <div class="card">✔ Atendimento transparente</div>
+    <div class="card">✔ Peças de qualidade</div>
+    <div class="card">✔ Experiência profissional</div>
+  </div>
+</section>
 
-<img src="https://i.imgur.com/SEU_LINK_LOGO.png" class="logo">
-
-<p>Atendimento profissional com processo, organização e padrão técnico.</p>
+<!-- SOBRE -->
+<section class="section">
+  <h2>Sobre a oficina</h2>
+  <div class="sobre">
+    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc">
+    <p style="max-width:400px;">
+      Especializada em manutenção automotiva multimarcas, com foco em qualidade, agilidade e confiança.
+    </p>
+  </div>
 </section>
 
 <!-- SERVIÇOS -->
-<section class="section">
-<h2>Serviços</h2>
-
-<div class="cards">
-<div class="card">Revisão preventiva</div>
-<div class="card">Troca de óleo e filtros</div>
-<div class="card">Freios e suspensão</div>
-<div class="card">Alinhamento e balanceamento</div>
-<div class="card">Diagnóstico eletrônico</div>
-<div class="card">Sistema de arrefecimento</div>
-<div class="card">Ar-condicionado</div>
-<div class="card">Bateria e elétrica</div>
-</div>
-
-<img src="https://i.imgur.com/SEU_LINK_SERVICOS.jpg" class="image">
+<section class="section servicos">
+  <h2>Serviços</h2>
+  <img src="3A30862C-0D2A-43A8-BBEF-B81331B4A27B.png">
 </section>
 
-<!-- DIFERENCIAL -->
+<!-- DEPOIMENTOS -->
 <section class="section">
-<h2>Padrão 77</h2>
-
-<div class="cards">
-<div class="card">✔ Processo padrão concessionária</div>
-<div class="card">✔ Atendimento com hora marcada</div>
-<div class="card">✔ Sem improviso</div>
-<div class="card">✔ Transparência total</div>
-</div>
+  <h2>O que dizem nossos clientes</h2>
+  <div class="depoimentos">
+    <div class="depoimento">"Atendimento rápido e honesto. Recomendo demais!"</div>
+    <div class="depoimento">"Serviço de qualidade e preço justo."</div>
+    <div class="depoimento">"Melhor oficina que já levei meu carro."</div>
+  </div>
 </section>
 
-<!-- CONTATO -->
-<section class="section">
-<h2>Agende agora</h2>
-
-<p>📍 Rua José Júlio de Araújo, 160 – Belo Horizonte</p>
-<p>🕒 Segunda a sexta, 08h às 18h</p>
-
-<a class="btn" href="https://wa.me/5531973575782">
-FALAR NO WHATSAPP
-</a>
+<!-- MAPA -->
+<section class="section mapa">
+  <h2>Localização</h2>
+  <iframe src="https://www.google.com/maps?q=Belo+Horizonte&output=embed"></iframe>
 </section>
 
-<a class="whatsapp" href="https://wa.me/5531973575782">💬</a>
+<!-- BOTÕES -->
+<a class="whatsapp" href="https://wa.me/5531973008091">💬</a>
+<a class="ligar" href="tel:+5531973008091">📞</a>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 77 Serviços Automotivos <br>
+  Belo Horizonte - MG
+</footer>
 
 </body>
 </html>
