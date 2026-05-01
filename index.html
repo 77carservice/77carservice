@@ -17,13 +17,13 @@
         }
 
         .racing-gradient {
-            background: linear-gradient(135deg, #012b5e 0%, #013D86 50%, #014a9e 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
         }
 
         .card-hover:hover {
             transform: translateY(-5px);
-            border-color: #013D86;
-            box-shadow: 0 10px 20px -5px rgba(1, 61, 134, 0.3);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
         }
 
         .hero-overlay {
@@ -45,7 +45,7 @@
         .section-divider {
             height: 4px;
             width: 60px;
-            background: #013D86;
+            background: #3b82f6;
             margin: 1.5rem auto;
             border-radius: 2px;
         }
@@ -55,25 +55,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .neon-glow {
-            box-shadow: 0 0 20px rgba(218, 250, 0, 0.15);
-        }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        tech: {
-                            blue: '#013D86',
-                            neon: '#DAFA00',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="antialiased">
 
@@ -82,17 +64,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center gap-2">
-                    <div class="w-12 h-12 racing-gradient rounded-lg flex items-center justify-center font-black text-2xl italic border-2 border-[#DAFA00]/30">77</div>
+                    <div class="w-12 h-12 racing-gradient rounded-lg flex items-center justify-center font-black text-2xl italic border-2 border-white/20">77</div>
                     <div class="flex flex-col">
                         <span class="font-black text-xl tracking-tighter uppercase italic leading-none">Car Service</span>
-                        <span class="text-[10px] uppercase tracking-[0.2em] text-[#DAFA00] font-bold">Padrão Concessionária</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">Padrão Concessionária</span>
                     </div>
                 </div>
                 <div class="hidden lg:flex space-x-8 font-bold uppercase text-xs tracking-widest">
-                    <a href="#servicos" class="hover:text-[#DAFA00] transition">Serviços</a>
-                    <a href="#metodo" class="hover:text-[#DAFA00] transition">Método</a>
-                    <a href="#especialista" class="hover:text-[#DAFA00] transition">O Especialista</a>
-                    <a href="#contato" class="hover:text-[#DAFA00] transition">Contato</a>
+                    <a href="#servicos" class="hover:text-blue-500 transition">Serviços</a>
+                    <a href="#metodo" class="hover:text-blue-500 transition">Método</a>
+                    <a href="#especialista" class="hover:text-blue-500 transition">O Especialista</a>
+                    <a href="#contato" class="hover:text-blue-500 transition">Contato</a>
                 </div>
                 <a href="https://wa.me/5531973575782" class="btn-whatsapp px-5 py-2.5 rounded-full font-bold text-xs flex items-center gap-2 shadow-lg shadow-green-500/20">
                     <i class="fab fa-whatsapp text-base"></i> AGENDAR AGORA
@@ -104,15 +86,15 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center hero-overlay pt-20">
         <div class="max-w-5xl mx-auto px-4 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-[#013D86]/20 border border-[#013D86]/50 rounded-full text-[#DAFA00] text-[10px] font-black tracking-[0.2em] uppercase mb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600/20 border border-blue-500/50 rounded-full text-blue-400 text-[10px] font-black tracking-[0.2em] uppercase mb-8">
                 <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#DAFA00] opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#DAFA00]"></span>
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
                 Região Oeste de Belo Horizonte
             </div>
             <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[0.9] italic uppercase tracking-tighter">
-                Seu carro na <span class="text-[#013D86]">Garantia</span><br>sem pagar concessionária.
+                Seu carro na <span class="text-blue-500">Garantia</span><br>sem pagar concessionária.
             </h1>
             <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto font-medium">
                 Manutenção preventiva rigorosa para veículos de 1 a 10 anos. Transparência total com check-list digital e padrão técnico de fábrica.
@@ -122,7 +104,7 @@
                     <i class="fab fa-whatsapp text-2xl"></i> QUERO UM ORÇAMENTO
                 </a>
                 <a href="https://wa.me/5531973575782?text=Olá! Gostaria de consultar o manual de fábrica do meu carro." class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 px-10 py-5 rounded-2xl font-black text-lg flex items-center justify-center border border-slate-700 transition group">
-                    CONSULTAR MANUAL <i class="fas fa-book-open ml-3 text-[#013D86] group-hover:scale-110 transition"></i>
+                    CONSULTAR MANUAL <i class="fas fa-book-open ml-3 text-blue-500 group-hover:scale-110 transition"></i>
                 </a>
             </div>
         </div>
@@ -167,55 +149,42 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="relative">
                     <div class="absolute -top-10 -left-10 w-40 h-40 racing-gradient rounded-full blur-[100px] opacity-20"></div>
-                    <div class="relative z-10 rounded-3xl overflow-hidden border border-[#013D86]/30 shadow-2xl neon-glow">
-                        <img src="https://v3b.fal.media/files/b/0a986600/FvrwRSiSgR75MIcCwP0TL_qR3JD2bW.png" alt="Anderson Alves - Especialista 77 Car Service" class="w-full">
+                    <div class="relative z-10 rounded-3xl overflow-hidden border border-slate-700 shadow-2xl">
+                        <img src="https://v3b.fal.media/files/b/0a9866b7/KWPaY858fgtNXOMwdgE3v_8rABO5Sv.png" alt="Especialista 77 Car Service" class="w-full grayscale hover:grayscale-0 transition duration-700">
                         <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-slate-950 to-transparent">
                             <p class="text-2xl font-black italic uppercase">Anderson Alves</p>
-                            <p class="text-[#DAFA00] font-bold text-xs uppercase tracking-widest">Fundador & Especialista Técnico</p>
-                            <p class="text-slate-400 text-xs mt-1">Piloto de Enduro #77 | GasGas EC 250</p>
+                            <p class="text-blue-400 font-bold text-xs uppercase tracking-widest">Fundador & Especialista Técnico</p>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">O Toque do <span class="text-[#013D86]">Especialista</span></h2>
-                    <div class="w-20 h-1 bg-[#DAFA00] mb-8"></div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-[#013D86]/20 border border-[#013D86]/30 rounded-full text-xs font-bold text-white">BMW</span>
-                        <span class="px-3 py-1 bg-[#013D86]/20 border border-[#013D86]/30 rounded-full text-xs font-bold text-white">VW</span>
-                        <span class="px-3 py-1 bg-[#013D86]/20 border border-[#013D86]/30 rounded-full text-xs font-bold text-white">Jeep</span>
-                        <span class="px-3 py-1 bg-[#DAFA00]/10 border border-[#DAFA00]/30 rounded-full text-xs font-bold text-[#DAFA00]">35+ Cursos</span>
-                        <span class="px-3 py-1 bg-[#DAFA00]/10 border border-[#DAFA00]/30 rounded-full text-xs font-bold text-[#DAFA00]">2 Pós-Graduações</span>
-                    </div>
-                    
+                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-6">O Toque do <span class="text-blue-500">Especialista</span></h2>
+                    <div class="w-20 h-1 bg-blue-600 mb-8"></div>
                     <p class="text-slate-300 text-lg mb-6 leading-relaxed">
-                        Com <strong>25+ anos de experiência</strong> como Gerente de Pós-Vendas em Concessionária, Anderson Alves trouxe para a 77 Car Service o rigor técnico que o seu carro exige.
+                        Com anos de experiência como <strong>Gerente de Pós-Vendas em Concessionária</strong>, Anderson Alves trouxe para a 77 Car Service o rigor técnico que o seu carro exige.
                     </p>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        Especialista em veículos <strong>BMW, Volkswagen e Jeep</strong>, com formação nos <strong>Estados Unidos</strong> e mais de <strong>35 cursos técnicos</strong> e <strong>2 pós-graduações</strong> na área automotiva. Cada diagnóstico é baseado em conhecimento técnico profundo — zero achismo.
-                    </p>
-                    <p class="text-slate-400 mb-10 leading-relaxed italic border-l-4 border-[#013D86] pl-4">
+                    <p class="text-slate-400 mb-10 leading-relaxed">
                         "Não somos apenas uma oficina. Somos um centro de cuidado automotivo baseado em processos. Aqui, cada parafuso tem um torque específico e cada revisão segue estritamente o que o engenheiro da fábrica projetou."
                     </p>
                     <div class="grid grid-cols-2 gap-6 mb-10">
                         <div class="glass-card p-4 rounded-xl">
-                            <p class="text-2xl font-black text-[#013D86] italic">25+</p>
+                            <p class="text-2xl font-black text-blue-500 italic">25+</p>
                             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Anos de Experiência</p>
                         </div>
                         <div class="glass-card p-4 rounded-xl">
-                            <p class="text-2xl font-black text-[#013D86] italic">5k+</p>
+                            <p class="text-2xl font-black text-blue-500 italic">5k+</p>
                             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Veículos Atendidos</p>
                         </div>
                     </div>
-                    <a href="https://wa.me/5531973575782" class="inline-flex items-center gap-3 text-[#DAFA00] font-black uppercase tracking-widest hover:text-white transition group">
-                        FALE COM O ESPECIALISTA <i class="fas fa-arrow-right group-hover:translate-x-2 transition"></i>
+                    <a href="https://wa.me/5531973575782" class="inline-flex items-center gap-3 text-blue-500 font-black uppercase tracking-widest hover:text-blue-400 transition group">
+                        CONHEÇA NOSSO MÉTODO <i class="fas fa-arrow-right group-hover:translate-x-2 transition"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Padrão Técnico -->
+    <!-- Padrão Técnico (Galeria/Antes e Depois) -->
     <section id="metodo" class="py-24 bg-slate-950">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
@@ -226,21 +195,21 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-800">
-                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719c141?auto=format&fit=crop&q=80&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <img src="https://v3b.fal.media/files/b/0a98673e/SGyzmnkEvTgq1enNZOZ2s_AD5vWCsE.png" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent p-8 flex flex-col justify-end">
                         <h4 class="font-black italic uppercase text-lg">Organização Impecável</h4>
                         <p class="text-xs text-slate-400">Ferramental de ponta e ambiente limpo.</p>
                     </div>
                 </div>
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-800">
-                    <img src="https://images.unsplash.com/photo-1632823471565-1ec2c63db7f5?auto=format&fit=crop&q=80&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <img src="https://v3b.fal.media/files/b/0a986740/hInXwf77JKE3yC6eO8f6R_t24aPsAt.png" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent p-8 flex flex-col justify-end">
                         <h4 class="font-black italic uppercase text-lg">Diagnóstico de Precisão</h4>
                         <p class="text-xs text-slate-400">Scanners e manuais técnicos originais.</p>
                     </div>
                 </div>
                 <div class="group relative overflow-hidden rounded-2xl border border-slate-800">
-                    <img src="https://images.unsplash.com/photo-1507702553912-a15641e827c8?auto=format&fit=crop&q=80&w=600" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <img src="https://v3b.fal.media/files/b/0a986742/uONGQsEobZaPX1vQ-wDbV_ox9GHK0q.png" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent p-8 flex flex-col justify-end">
                         <h4 class="font-black italic uppercase text-lg">Entrega Premium</h4>
                         <p class="text-xs text-slate-400">Ducha e acabamento em cada serviço.</p>
@@ -248,9 +217,10 @@
                 </div>
             </div>
 
-            <div class="mt-16 glass-card p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 border-[#013D86]/30">
+            <!-- Check-list Digital Promo -->
+            <div class="mt-16 glass-card p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 border-blue-500/30">
                 <div class="flex items-center gap-6">
-                    <div class="w-20 h-20 bg-[#013D86] rounded-2xl flex items-center justify-center text-4xl shadow-lg shadow-[#013D86]/40">
+                    <div class="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-4xl shadow-lg shadow-blue-600/40">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <div>
@@ -275,44 +245,50 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-oil-can text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-oil-can text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Revisão Preventiva</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Troca de óleo, filtros e check-list completo conforme o manual de fábrica do seu veículo.</p>
                 </div>
+                <!-- Card 2 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-car-battery text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-car-battery text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Diagnóstico Eletrônico</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Identificação precisa de falhas via scanner de última geração, sem adivinhações.</p>
                 </div>
+                <!-- Card 3 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-tools text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-tools text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Freios e Suspensão</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Manutenção técnica rigorosa para garantir a segurança e o conforto da sua família.</p>
                 </div>
+                <!-- Card 4 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-wind text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-wind text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Ar-Condicionado</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Higienização completa e oxi-sanitização para um ar puro e sistema eficiente.</p>
                 </div>
+                <!-- Card 5 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-align-center text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-align-center text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Alinhamento 3D</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Geometria precisa para preservar seus pneus e garantir a estabilidade do veículo.</p>
                 </div>
+                <!-- Card 6 -->
                 <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 card-hover transition-all duration-300">
-                    <div class="w-14 h-14 bg-[#013D86]/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-search text-2xl text-[#013D86]"></i>
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-search text-2xl text-blue-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase italic">Avaliação Cautelar</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Análise técnica completa para quem vai comprar ou vender um veículo usado.</p>
@@ -329,18 +305,18 @@
                     <h2 class="text-4xl font-black italic uppercase tracking-tighter mb-8">Onde Estamos</h2>
                     <div class="space-y-8">
                         <div class="flex items-start gap-5">
-                            <div class="w-12 h-12 bg-[#013D86]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-xl text-[#013D86]"></i>
+                            <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-xl text-blue-500"></i>
                             </div>
                             <div>
                                 <p class="font-black text-xl italic uppercase">Rua José Júlio de Araújo, 160</p>
                                 <p class="text-slate-400">Belo Horizonte - MG | CEP: 30610-510</p>
-                                <p class="text-[#DAFA00] text-xs font-bold mt-2 uppercase tracking-widest">Região: Buritis, Palmeiras, Estoril, Barreiro.</p>
+                                <p class="text-blue-400 text-xs font-bold mt-2 uppercase tracking-widest">Região: Buritis, Palmeiras, Estoril, Barreiro.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-5">
-                            <div class="w-12 h-12 bg-[#013D86]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-xl text-[#013D86]"></i>
+                            <div class="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-xl text-blue-500"></i>
                             </div>
                             <div>
                                 <p class="font-black text-xl italic uppercase">Horário de Funcionamento</p>
@@ -373,15 +349,14 @@
     <footer class="py-16 border-t border-slate-800 bg-slate-950">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <div class="flex items-center justify-center gap-2 mb-8">
-                <div class="w-12 h-12 racing-gradient rounded-lg flex items-center justify-center font-black italic border border-[#DAFA00]/30">77</div>
+                <div class="w-12 h-12 racing-gradient rounded-lg flex items-center justify-center font-black italic border border-white/20">77</div>
                 <span class="font-black text-2xl tracking-tighter uppercase italic">Car Service</span>
             </div>
             <p class="text-slate-500 text-sm mb-8 max-w-md mx-auto">Especialistas em manutenção preventiva com padrão de concessionária em Belo Horizonte.</p>
             <div class="flex justify-center space-x-8 text-slate-400 mb-12">
-                <a href="https://www.instagram.com/77carservice" class="hover:text-[#DAFA00] transition text-2xl"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/andersonalves77" class="hover:text-[#DAFA00] transition text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="hover:text-[#DAFA00] transition text-2xl"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="hover:text-[#DAFA00] transition text-2xl"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/77carservice" class="hover:text-blue-500 transition text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-blue-500 transition text-2xl"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-blue-500 transition text-2xl"><i class="fab fa-youtube"></i></a>
             </div>
             <div class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-600">
                 © 2026 77 Car Service | Nova fase. Mesma experiência!
