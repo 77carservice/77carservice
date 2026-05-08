@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Manutenção | 77 Car Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
+        * { font-family: 'Inter', sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .racing-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            transition: all 0.3s ease;
+        }
+        .btn-whatsapp:hover {
+            background: #128c7e;
+            transform: scale(1.03);
+        }
+
+        select, input {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #f8fafc;
+            outline: none;
+            transition: all 0.2s;
+        }
+        select:focus, input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+
+        .status-ok { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+        .status-warn { background: rgba(234,179,8,0.15); color: #eab308; border: 1px solid rgba(234,179,8,0.3); }
+        .status-expired { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); animation: pulse-red 2s infinite; }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+        }
+
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        .progress-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <nav class="w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-12 h-12 racing-gradient rounded-lg flex items-center justify-center font-black text-2xl italic border-2 border-white/20">77</div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-xl tracking-tighter uppercase italic leading-none">Car Service</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">Padrão Concessionária</span>
+                    </div>
+                </a>
+                <a href="https://wa.me/5531994127651" class="btn-whatsapp px-5 py-2.5 rounded-full font-bold text-xs flex items-center gap-2 shadow-lg shadow-green-500/20">
+                    <i class="fab fa-whatsapp text-base"></i> AGENDAR AGORA
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-8 md:py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Title -->
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600/20 border border-blue-500/50 rounded-full text-blue-400 text-[10px] font-black tracking-[0.2em] uppercase mb-6">
+                    <i class="fas fa-book-open"></i> Consulta Técnica
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter leading-[0.95]">
+                    O que o manual recomenda<br>para <span class="text-blue-500">seu carro</span> agora?
+                </h1>
+                <p class="text-slate-400 mt-4 max-w-xl mx-auto">
+                    Selecione seu veículo e informe a quilometragem e o tempo de uso. A gente mostra exatamente o que o fabricante manda trocar ou revisar.
+                </p>
+            </div>
+
+            <!-- Selector Card -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <!-- Marca -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Marca</label>
+                        <select id="marca" class="w-full px-4 py-3 rounded-xl text-sm font-semibold">
+                            <option value="">Selecione a marca</option>
+                        </select>
+                    </div>
+                    <!-- Modelo -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Modelo</label>
+                        <select id="modelo" class="w-full px-4 py-3 rounded-xl text-sm font-semibold" disabled>
+                            <option value="">Selecione o modelo</option>
+                        </select>
+                    </div>
+                    <!-- Ano -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Ano</label>
+                        <select id="ano" class="w-full px-4 py-3 rounded-xl text-sm font-semibold" disabled>
+                            <option value="">Selecione o ano</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Quilometragem -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+                            Quilometragem atual <span class="text-slate-600">(km)</span>
+                        </label>
+                        <input type="number" id="km" placeholder="Ex: 45000" class="w-full px-4 py-3 rounded-xl text-sm font-semibold" min="0">
+                    </div>
+                    <!-- Tempo de uso -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+                            Meses desde a última revisão
+                        </label>
+                        <input type="number" id="meses" placeholder="Ex: 8" class="w-full px-4 py-3 rounded-xl text-sm font-semibold" min="0">
+                    </div>
+                </div>
+
+                <button id="btnConsultar" onclick="consultar()" class="btn-primary w-full py-4 rounded-xl font-black text-lg uppercase tracking-wider flex items-center justify-center gap-3">
+                    <i class="fas fa-search"></i> Consultar Manutenção
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="resultados" class="hidden space-y-4">
+                
+                <!-- Resumo -->
+                <div id="resumoCard" class="glass-card rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Veículo Selecionado</p>
+                        <p id="resumoVeiculo" class="text-xl font-black italic uppercase"></p>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="px-3 py-1.5 bg-slate-800 rounded-lg text-xs font-bold"><span id="resumoKm"></span> km</div>
+                        <div class="px-3 py-1.5 bg-slate-800 rounded-lg text-xs font-bold"><span id="resumoMeses"></span> meses</div>
+                    </div>
+                </div>
+
+                <!-- Tabela -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-slate-700/50">
+                                    <th class="text-left p-4 text-xs font-bold uppercase tracking-widest text-slate-400">Item / Peça</th>
+                                    <th class="text-center p-4 text-xs font-bold uppercase tracking-widest text-slate-400">Intervalo (km)</th>
+                                    <th class="text-center p-4 text-xs font-bold uppercase tracking-widest text-slate-400">Intervalo (meses)</th>
+                                    <th class="text-center p-4 text-xs font-bold uppercase tracking-widest text-slate-400">Status</th>
+                                    <th class="text-center p-4 text-xs font-bold uppercase tracking-widest text-slate-400">Vida Útil</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CTA WhatsApp -->
+                <div id="ctaCard" class="glass-card rounded-2xl p-6 md:p-8 text-center border-blue-500/20">
+                    <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="fab fa-whatsapp text-green-500"></i>
+                    </div>
+                    <h3 class="text-xl font-black italic uppercase mb-2">Itens vencidos ou próximos?</h3>
+                    <p class="text-slate-400 mb-6">Agende agora mesmo a revisão do seu veículo na 77 Car Service.</p>
+                    <a id="btnWhatsApp" href="#" class="btn-whatsapp inline-flex items-center gap-3 px-10 py-4 rounded-xl font-black text-lg shadow-xl shadow-green-500/20">
+                        <i class="fab fa-whatsapp text-2xl"></i> AGENDAR REVISÃO PELO WHATSAPP
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="text-center py-16">
+                <div class="w-24 h-24 bg-slate-800/50 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl">
+                    <i class="fas fa-car-side text-slate-600"></i>
+                </div>
+                <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Selecione seu veículo e clique em Consultar</p>
+                <p class="text-slate-600 text-xs mt-2">Os dados de manutenção seguem as recomendações do manual do fabricante.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-10 h-10 racing-gradient rounded-lg flex items-center justify-center font-black text-lg italic border border-white/20">77</div>
+                <span class="font-black text-xl tracking-tighter uppercase italic">Car Service</span>
+            </div>
+            <div class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-600">
+                © 2026 77 Car Service | Consulte sempre o manual do fabricante
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // BASE DE DADOS DE MANUTENÇÃO PREVENTIVA
+        // Intervalos conforme recomendações de manual do fabricante
+        // ============================================================
+        const database = {
+            "Honda": {
+                "Civic": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "HR-V": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Fit": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "City": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Toyota": {
+                "Corolla": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição (iridium)", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Hilux": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 20000, meses: 24 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 40000, meses: 36 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Yaris": {
+                    anos: [2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Etios": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Volkswagen": {
+                "Gol": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "T-Cross": {
+                    anos: [2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Nivus": {
+                    anos: [2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Polo": {
+                    anos: [2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Virtus": {
+                    anos: [2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Chevrolet": {
+                "Onix": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 96000, meses: 96 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Tracker": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 96000, meses: 96 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "S10": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 20000, meses: 24 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 96000, meses: 96 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Spin": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 96000, meses: 96 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Fiat": {
+                "Strada": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Toro": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Argo": {
+                    anos: [2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Mobi": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Hyundai": {
+                "HB20": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Creta": {
+                    anos: [2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Tucson": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Jeep": {
+                "Renegade": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Compass": {
+                    anos: [2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Commander": {
+                    anos: [2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 30000, meses: 36 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Renault": {
+                "Kwid": {
+                    anos: [2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Sandero": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Duster": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 60000, meses: 48 },
+                        { nome: "Correia dentada", km: 120000, meses: 96 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Nissan": {
+                "Kicks": {
+                    anos: [2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Frontier": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 20000, meses: 24 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 40000, meses: 36 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Versa": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Ford": {
+                "Ranger": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 20000, meses: 24 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 40000, meses: 36 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Territory": {
+                    anos: [2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            },
+            "Mitsubishi": {
+                "L200 Triton": {
+                    anos: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 20000, meses: 24 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 40000, meses: 36 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (automática)", km: 60000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                },
+                "Eclipse Cross": {
+                    anos: [2019,2020,2021,2022,2023,2024],
+                    itens: [
+                        { nome: "Óleo do motor + filtro", km: 10000, meses: 12 },
+                        { nome: "Filtro de ar do motor", km: 20000, meses: 24 },
+                        { nome: "Filtro de combustível", km: 40000, meses: 48 },
+                        { nome: "Filtro de cabine (AC)", km: 20000, meses: 12 },
+                        { nome: "Velas de ignição", km: 100000, meses: 120 },
+                        { nome: "Correia de acessórios", km: 60000, meses: 48 },
+                        { nome: "Fluido de freio", km: 30000, meses: 24 },
+                        { nome: "Fluido de transmissão (CVT)", km: 40000, meses: 48 },
+                        { nome: "Fluido de arrefecimento", km: 60000, meses: 48 },
+                        { nome: "Pastilhas de freio (dianteiras)", km: 40000, meses: 24 },
+                        { nome: "Pastilhas de freio (traseiras)", km: 60000, meses: 36 },
+                        { nome: "Discos de freio", km: 80000, meses: 48 },
+                        { nome: "Amortecedores", km: 80000, meses: 60 },
+                        { nome: "Bateria", km: 40000, meses: 36 },
+                        { nome: "Pneus (rodízio/balanceamento)", km: 10000, meses: 6 },
+                        { nome: "Alinhamento", km: 20000, meses: 12 },
+                        { nome: "Limpeza do sistema de AC", km: 20000, meses: 12 }
+                    ]
+                }
+            }
+        };
+
+        // ============================================================
+        // LÓGICA DE INTERAÇÃO
+        // ============================================================
+        
+        const marcaSelect = document.getElementById('marca');
+        const modeloSelect = document.getElementById('modelo');
+        const anoSelect = document.getElementById('ano');
+
+        // Popula marcas no load
+        window.addEventListener('DOMContentLoaded', () => {
+            const marcas = Object.keys(database).sort();
+            marcas.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                marcaSelect.appendChild(opt);
+            });
+        });
+
+        // Ao selecionar marca → popula modelos
+        marcaSelect.addEventListener('change', () => {
+            const marca = marcaSelect.value;
+            modeloSelect.innerHTML = '<option value="">Selecione o modelo</option>';
+            anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
+            anoSelect.disabled = true;
+            if (!marca) { modeloSelect.disabled = true; return; }
+            modeloSelect.disabled = false;
+            const modelos = Object.keys(database[marca]).sort();
+            modelos.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                modeloSelect.appendChild(opt);
+            });
+        });
+
+        // Ao selecionar modelo → popula anos
+        modeloSelect.addEventListener('change', () => {
+            const marca = marcaSelect.value;
+            const modelo = modeloSelect.value;
+            anoSelect.innerHTML = '<option value="">Selecione o ano</option>';
+            if (!marca || !modelo) { anoSelect.disabled = true; return; }
+            anoSelect.disabled = false;
+            const anos = database[marca][modelo].anos.sort((a,b) => b-a);
+            anos.forEach(a => {
+                const opt = document.createElement('option');
+                opt.value = a;
+                opt.textContent = a;
+                anoSelect.appendChild(opt);
+            });
+        });
+
+        // Consulta principal
+        function consultar() {
+            const marca = marcaSelect.value;
+            const modelo = modeloSelect.value;
+            const ano = anoSelect.value;
+            const km = parseInt(document.getElementById('km').value) || 0;
+            const meses = parseInt(document.getElementById('meses').value) || 0;
+
+            if (!marca || !modelo || !ano) {
+                alert('Selecione marca, modelo e ano do veículo!');
+                return;
+            }
+
+            const itens = database[marca][modelo].itens;
+
+            // Calcula status de cada item
+            const resultados = itens.map(item => {
+                const pctKm = km / item.km;
+                const pctMeses = meses / item.meses;
+                const pct = Math.max(pctKm, pctMeses);
+                
+                let status, statusClass, badgeClass;
+                if (pct >= 1.0) {
+                    status = 'VENCIDO';
+                    statusClass = 'status-expired';
+                    badgeClass = '🔴';
+                } else if (pct >= 0.8) {
+                    status = 'PROGRAMAR';
+                    statusClass = 'status-warn';
+                    badgeClass = '⚠️';
+                } else {
+                    status = 'EM DIA';
+                    statusClass = 'status-ok';
+                    badgeClass = '✅';
+                }
+
+                const vidaUtilPct = Math.max(0, Math.min(100, Math.round((1 - pct) * 100)));
+                const barColor = vidaUtilPct > 50 ? '#22c55e' : vidaUtilPct > 20 ? '#eab308' : '#ef4444';
+
+                return { ...item, pctKm, pctMeses, status, statusClass, badgeClass, vidaUtilPct, barColor };
+            });
+
+            // Renderiza tabela
+            const tbody = document.getElementById('tabelaBody');
+            tbody.innerHTML = resultados.map((r, i) => `
+                <tr class="border-b border-slate-700/30 fade-in" style="animation-delay:${i * 0.04}s">
+                    <td class="p-4 font-semibold">${r.badgeClass} ${r.nome}</td>
+                    <td class="p-4 text-center text-slate-400 text-xs">a cada <span class="text-white font-bold">${r.km.toLocaleString()}</span> km</td>
+                    <td class="p-4 text-center text-slate-400 text-xs">a cada <span class="text-white font-bold">${r.meses}</span> meses</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${r.statusClass}">${r.status}</span>
+                    </td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2">
+                            <div class="progress-bar flex-grow">
+                                <div class="progress-fill" style="width:${r.vidaUtilPct}%; background:${r.barColor};"></div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500 w-8 text-right">${r.vidaUtilPct}%</span>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Atualiza resumo
+            document.getElementById('resumoVeiculo').textContent = `${marca} ${modelo} ${ano}`;
+            document.getElementById('resumoKm').textContent = km.toLocaleString();
+            document.getElementById('resumoMeses').textContent = meses;
+
+            // Monta mensagem WhatsApp com itens vencidos/programar
+            const itensAlerta = resultados.filter(r => r.status === 'VENCIDO' || r.status === 'PROGRAMAR');
+            const msg = itensAlerta.length > 0 
+                ? `Olá! Vi na Consulta de Manutenção do site 77 Car Service que meu ${marca} ${modelo} ${ano} (${km.toLocaleString()} km, ${meses} meses de uso) precisa de atenção nos seguintes itens:%0A%0A${itensAlerta.map(r => `• ${r.badgeClass} ${r.nome} — ${r.status}`).join('%0A')}%0A%0AGostaria de agendar uma revisão!`
+                : `Olá! Consultei o manual no site da 77 Car Service para meu ${marca} ${modelo} ${ano} e gostaria de agendar uma revisão preventiva!`;
+            
+            document.getElementById('btnWhatsApp').href = `https://wa.me/5531994127651?text=${msg}`;
+
+            // Mostra resultados, esconde empty state
+            document.getElementById('resultados').classList.remove('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+
+            // Scroll suave aos resultados
+            document.getElementById('resultados').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
