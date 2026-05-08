@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>77 Car Service | Checklist de Manutenção</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#0a0a0a; color:#fff; min-height:100vh; }
+    .font-teko { font-family:'Teko',sans-serif; }
+    .bg-77-red { background:#C8102E; }
+    .text-77-red { color:#C8102E; }
+    .bg-77-dark { background:#1a1a1a; }
+    .bg-77-card { background:#111; }
+    input, textarea { background:#1a1a1a; border:1px solid #333; color:#fff; padding:12px 16px; border-radius:8px; width:100%; font-size:16px; transition:all 0.2s; }
+    input:focus, textarea:focus { outline:none; border-color:#C8102E; box-shadow:0 0 0 3px rgba(200,16,46,0.15); }
+    .btn-primary { background:#C8102E; color:#fff; font-weight:700; padding:14px 32px; border-radius:8px; font-size:16px; cursor:pointer; border:none; transition:all 0.2s; }
+    .btn-primary:hover { background:#a00d24; transform:translateY(-1px); }
+    .btn-pdf { background:#e11d48; color:#fff; font-weight:700; padding:16px 32px; border-radius:12px; font-size:18px; cursor:pointer; border:none; transition:all 0.2s; }
+    .btn-pdf:hover { background:#be123c; transform:translateY(-2px); }
+    .status-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .status-critical { background:#EF4444; }
+    .status-warning { background:#F59E0B; }
+    .status-ok { background:#22C55E; }
+    .item-card { transition:all 0.2s; }
+    .item-card:hover { border-color:#444; }
+    .tab-btn { padding:10px 20px; border-radius:8px 8px 0 0; cursor:pointer; font-weight:600; font-size:14px; border:none; transition:all 0.2s; }
+    .tab-btn.active { background:#C8102E; color:#fff; }
+    .tab-btn:not(.active) { background:#1a1a1a; color:#888; }
+    .tab-btn:not(.active):hover { background:#222; color:#fff; }
+    .img-preview { max-width:100%; max-height:200px; border-radius:8px; object-fit:cover; }
+    .watermark { position:relative; }
+    .watermark::after { content:'77 CAR SERVICE'; position:absolute; bottom:8px; right:8px; background:rgba(200,16,46,0.85); color:#fff; padding:4px 10px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:1px; }
+  </style>
+</head>
+<body>
+  <div class="max-w-2xl mx-auto px-4 py-6">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <div class="text-5xl font-teko font-bold tracking-wider text-white">77</div>
+      <div class="text-lg font-bold tracking-widest text-77-red -mt-1">CHECKLIST DE MANUTENÇÃO</div>
+      <div class="text-xs text-gray-500 mt-1">Registro fotográfico da vistoria • 77 Car Service</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-1 mb-6">
+      <button class="tab-btn active" onclick="switchTab('checklist')" id="tab-checklist">📸 Checklist</button>
+      <button class="tab-btn" onclick="switchTab('orcamento')" id="tab-orcamento">💰 Orçamento</button>
+      <button class="tab-btn" onclick="switchTab('previa')" id="tab-previa">👁️ Prévia PDF</button>
+    </div>
+
+    <!-- Dados do Cliente/Veículo -->
+    <div class="bg-77-card rounded-2xl p-4 mb-6 border border-gray-800">
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-xs text-gray-400 font-semibold">CLIENTE</label><input type="text" id="cliente" placeholder="Nome completo"></div>
+        <div><label class="text-xs text-gray-400 font-semibold">TELEFONE</label><input type="text" id="telefone" placeholder="(31) 9xxxx-xxxx"></div>
+        <div><label class="text-xs text-gray-400 font-semibold">VEÍCULO</label><input type="text" id="veiculo" placeholder="Ex: Honda Civic"></div>
+        <div><label class="text-xs text-gray-400 font-semibold">PLACA</label><input type="text" id="placa" placeholder="Ex: ABC-1234"></div>
+        <div><label class="text-xs text-gray-400 font-semibold">KM ATUAL</label><input type="number" id="kmAtual" placeholder="Ex: 45000"></div>
+        <div><label class="text-xs text-gray-400 font-semibold">ANO</label><input type="number" id="anoVeiculo" placeholder="Ex: 2020"></div>
+      </div>
+    </div>
+
+    <!-- Progresso -->
+    <div class="bg-77-card rounded-xl p-3 mb-4 border border-gray-800 flex items-center justify-between">
+      <span class="text-sm font-semibold">📋 Progresso da Checklist</span>
+      <span class="text-lg font-bold text-77-red" id="progresso">0/15 itens</span>
+    </div>
+
+    <!-- Checklist (Tab 1) -->
+    <div id="tab-checklist-content" class="space-y-3">
+    </div>
+
+    <!-- Orçamento (Tab 2) -->
+    <div id="tab-orcamento-content" class="hidden">
+      <div class="bg-77-card rounded-2xl p-4 border border-gray-800 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead><tr class="text-left text-xs text-gray-400 uppercase tracking-wider border-b border-gray-800"><th class="py-2">Item</th><th class="py-2">Status</th><th class="py-2">Foto</th><th class="py-2 text-right">Valor Estimado</th></tr></thead>
+          <tbody id="tabela-orcamento"></tbody>
+        </table>
+        <div class="text-right mt-4 pt-3 border-t border-gray-800">
+          <span class="text-lg font-bold">Total: <span class="text-77-red" id="total-orcamento">R$ 0,00</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prévia PDF (Tab 3) -->
+    <div id="tab-previa-content" class="hidden">
+      <div class="bg-white text-black rounded-2xl p-6" id="pdf-preview">
+        <div class="text-center border-b-2 border-red-600 pb-4 mb-4">
+          <div class="text-3xl font-teko font-bold">77 CAR SERVICE</div>
+          <div class="text-xs text-gray-500">Padrão Concessionária</div>
+          <div class="text-sm font-bold mt-2">RELATÓRIO DE VISTORIA</div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+          <div><strong>Cliente:</strong> <span id="pv-cliente">—</span></div>
+          <div><strong>Telefone:</strong> <span id="pv-telefone">—</span></div>
+          <div><strong>Veículo:</strong> <span id="pv-veiculo">—</span></div>
+          <div><strong>Placa:</strong> <span id="pv-placa">—</span></div>
+          <div><strong>KM:</strong> <span id="pv-km">—</span></div>
+          <div><strong>Ano:</strong> <span id="pv-ano">—</span></div>
+        </div>
+        <div id="pv-itens"></div>
+      </div>
+      <button class="btn-pdf w-full mt-4" onclick="gerarPDF()">📄 GERAR PDF PROFISSIONAL</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-6 pb-6">
+      <a href="index.html" class="text-gray-500 text-xs hover:text-77-red transition">← Voltar ao site da 77 Car Service</a>
+    </div>
+  </div>
+
+  <script>
+    const itens = [
+      {id:1, nome:'Pastilhas de Freio Dianteiras', cat:'Freios', km:30000, meses:12, critico:true, valor:280},
+      {id:2, nome:'Pastilhas de Freio Traseiras', cat:'Freios', km:40000, meses:12, critico:true, valor:260},
+      {id:3, nome:'Discos de Freio Dianteiros', cat:'Freios', km:60000, meses:24, critico:true, valor:420},
+      {id:4, nome:'Fluido de Freio', cat:'Freios', km:30000, meses:24, critico:false, valor:120},
+      {id:5, nome:'Correia Dentada', cat:'Motor', km:60000, meses:48, critico:true, valor:650},
+      {id:6, nome:'Correia de Acessórios', cat:'Motor', km:40000, meses:24, critico:false, valor:180},
+      {id:7, nome:'Óleo do Motor', cat:'Motor', km:10000, meses:6, critico:false, valor:180},
+      {id:8, nome:'Filtro de Óleo', cat:'Motor', km:10000, meses:6, critico:false, valor:55},
+      {id:9, nome:'Filtro de Ar', cat:'Motor', km:20000, meses:12, critico:false, valor:85},
+      {id:10, nome:'Filtro de Combustível', cat:'Motor', km:40000, meses:24, critico:false, valor:120},
+      {id:11, nome:'Velas de Ignição', cat:'Motor', km:40000, meses:24, critico:false, valor:180},
+      {id:12, nome:'Pneus (4 unidades)', cat:'Segurança', km:50000, meses:36, critico:true, valor:1800},
+      {id:13, nome:'Amortecedores', cat:'Suspensão', km:80000, meses:48, critico:false, valor:1200},
+      {id:14, nome:'Bateria', cat:'Elétrica', km:40000, meses:24, critico:false, valor:450},
+      {id:15, nome:'Palhetas do Para-brisa', cat:'Conforto', km:30000, meses:12, critico:false, valor:90}
+    ];
+
+    const estado = {}; // {id: {status:'pendente'|'ok'|'alerta'|'critico', foto:null|dataURL}}
+
+    itens.forEach(i => { estado[i.id] = {status:'pendente', foto:null}; });
+
+    function getStatusInfo(s) {
+      if (s==='pendente') return {dot:'status-warning', badge:'⏳ Pendente', cls:'text-yellow-500'};
+      if (s==='ok') return {dot:'status-ok', badge:'✅ OK', cls:'text-green-500'};
+      if (s==='alerta') return {dot:'status-warning', badge:'⚠️ Programar', cls:'text-yellow-500'};
+      if (s==='critico') return {dot:'status-critical', badge:'🔴 Substituir', cls:'text-red-500'};
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById('tab-checklist-content');
+      let html = '';
+      itens.forEach(item => {
+        const e = estado[item.id];
+        const si = getStatusInfo(e.status);
+        const critLabel = item.critico ? '🔴 CRÍTICO' : '🟡 ALERTA';
+        html += `
+          <div class="item-card bg-77-card rounded-xl p-4 border border-gray-800">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <span class="${si.dot} status-dot"></span>
+                  <span class="font-bold">${item.nome}</span>
+                  <span class="text-xs ${item.critico ? 'text-red-500' : 'text-yellow-500'} font-semibold">${critLabel}</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">${item.cat} • Troca ideal: ${item.km.toLocaleString()} km / ${item.meses} meses</div>
+              </div>
+              <span class="text-xs ${si.cls} font-bold ml-2">${si.badge}</span>
+            </div>
+            <div class="flex gap-2 mt-2 flex-wrap">
+              <button onclick="setStatus(${item.id},'ok')" class="px-3 py-1 rounded text-xs font-bold ${e.status==='ok'?'bg-green-600 text-white':'bg-gray-800 text-gray-400 hover:bg-green-900'}">✅ OK</button>
+              <button onclick="setStatus(${item.id},'alerta')" class="px-3 py-1 rounded text-xs font-bold ${e.status==='alerta'?'bg-yellow-600 text-white':'bg-gray-800 text-gray-400 hover:bg-yellow-900'}">⚠️ Programar</button>
+              <button onclick="setStatus(${item.id},'critico')" class="px-3 py-1 rounded text-xs font-bold ${e.status==='critico'?'bg-red-600 text-white':'bg-gray-800 text-gray-400 hover:bg-red-900'}">🔴 Substituir</button>
+            </div>
+            <div class="mt-3 flex items-center gap-3">
+              <label class="cursor-pointer bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2">
+                📷 ${e.foto ? 'Trocar Foto' : 'Tirar Foto'}
+                <input type="file" accept="image/*,video/*" capture="environment" class="hidden" onchange="handleFile(${item.id}, this)">
+              </label>
+              ${e.foto ? `<div class="watermark"><img src="${e.foto}" class="img-preview" style="max-height:80px;"></div>` : '<span class="text-xs text-gray-600">Clique para anexar</span>'}
+            </div>
+          </div>`;
+      });
+      container.innerHTML = html;
+      updateProgresso();
+    }
+
+    function setStatus(id, status) {
+      estado[id].status = status;
+      renderChecklist();
+      renderOrcamento();
+      updatePrevia();
+    }
+
+    function handleFile(id, input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        estado[id].foto = e.target.result;
+        renderChecklist();
+        renderOrcamento();
+        updatePrevia();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateProgresso() {
+      const total = itens.length;
+      const feitos = itens.filter(i => estado[i.id].status !== 'pendente').length;
+      document.getElementById('progresso').textContent = `${feitos}/${total} itens`;
+    }
+
+    function renderOrcamento() {
+      const tbody = document.getElementById('tabela-orcamento');
+      let html = '';
+      let total = 0;
+      itens.forEach(item => {
+        const e = estado[item.id];
+        if (e.status === 'pendente' || e.status === 'ok') return;
+        total += item.valor;
+        const si = getStatusInfo(e.status);
+        html += `<tr class="border-b border-gray-800">
+          <td class="py-2">${item.nome}</td>
+          <td class="py-2"><span class="${si.cls} text-xs font-bold">${si.badge}</span></td>
+          <td class="py-2">${e.foto ? '📸' : '❌'}</td>
+          <td class="py-2 text-right">R$ ${item.valor.toFixed(2)}</td>
+        </tr>`;
+      });
+      tbody.innerHTML = html || '<tr><td colspan="4" class="py-4 text-center text-gray-500">Nenhum item com necessidade de troca</td></tr>';
+      document.getElementById('total-orcamento').textContent = `R$ ${total.toFixed(2)}`;
+    }
+
+    function switchTab(tab) {
+      ['checklist','orcamento','previa'].forEach(t => {
+        document.getElementById(`tab-${t}-content`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).classList.remove('active');
+      });
+      document.getElementById(`tab-${tab}-content`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+      if (tab === 'orcamento') renderOrcamento();
+      if (tab === 'previa') updatePrevia();
+    }
+
+    function updatePrevia() {
+      document.getElementById('pv-cliente').textContent = document.getElementById('cliente').value || '—';
+      document.getElementById('pv-telefone').textContent = document.getElementById('telefone').value || '—';
+      document.getElementById('pv-veiculo').textContent = document.getElementById('veiculo').value || '—';
+      document.getElementById('pv-placa').textContent = document.getElementById('placa').value || '—';
+      document.getElementById('pv-km').textContent = document.getElementById('kmAtual').value || '—';
+      document.getElementById('pv-ano').textContent = document.getElementById('anoVeiculo').value || '—';
+
+      const container = document.getElementById('pv-itens');
+      let html = '<div class="space-y-3">';
+      itens.forEach(item => {
+        const e = estado[item.id];
+        if (e.status === 'pendente') return;
+        const si = getStatusInfo(e.status);
+        html += `<div class="border rounded-lg p-3 flex gap-3">
+          ${e.foto ? `<div class="watermark flex-shrink-0"><img src="${e.foto}" style="width:80px;height:60px;object-fit:cover;border-radius:4px;"></div>` : '<div class="flex-shrink-0 w-20 h-15 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">Sem foto</div>'}
+          <div class="flex-1">
+            <div class="font-bold text-sm">${item.nome}</div>
+            <div class="text-xs ${si.cls}">${si.badge}</div>
+            <div class="text-xs">R$ ${item.valor.toFixed(2)}</div>
+            ${!e.foto ? '<div class="text-xs text-red-500 mt-1">⚠️ Foto pendente</div>' : ''}
+          </div>
+        </div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html || '<p class="text-gray-400 text-sm">Nenhum item avaliado ainda.</p>';
+    }
+
+    function gerarPDF() {
+      const semFoto = itens.filter(i => estado[i.id].status !== 'pendente' && estado[i.id].status !== 'ok' && !estado[i.id].foto);
+      if (semFoto.length > 0) {
+        if (!confirm(`⚠️ ${semFoto.length} item(ns) crítico(s) sem foto: ${semFoto.map(i=>i.nome).join(', ')}.\n\nDeseja gerar o PDF mesmo assim?`)) return;
+      }
+
+      const element = document.getElementById('pdf-preview');
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `77CarService_Checklist_${document.getElementById('cliente').value || 'cliente'}.pdf`,
+        image: { type: 'jpeg', quality: 0.9 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    renderChecklist();
+    renderOrcamento();
+    updatePrevia();
+  </script>
+</body>
+</html>
