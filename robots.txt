@@ -1,10 +1,10 @@
+```
 User-agent: *
 Allow: /
-Sitemap: https://77carservice.com/sitemap.xml
+Sitemap: https://77carservice.com.br/sitemap.xml
 
-# Crawl-delay para bots menos comportados
 Crawl-delay: 5
 
-# Diretórios privados (se houver)
 Disallow: /admin/
-Disallow: /private/ 
+Disallow: /private/
+```
