@@ -1,0 +1,105 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão Preventiva BH | 77 Car Service</title>
+    <meta name="description" content="Revisão preventiva em BH com padrão de concessionária. Check-list digital grátis e peças originais. WhatsApp: (31) 99412-7651.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://77carservice.com.br/revisao-preventiva-bh.html">
+    <meta property="og:title" content="Revisão Preventiva BH | 77 Car Service">
+    <meta property="og:description" content="Revisão preventiva com padrão de concessionária em BH.">
+    <meta property="og:url" content="https://77carservice.com.br/revisao-preventiva-bh.html">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body{font-family:'Inter',sans-serif;background:#0f172a;color:#f8fafc}
+        .btn-wp{background:#25d366;transition:all .3s}
+        .btn-wp:hover{background:#128c7e;transform:scale(1.05)}
+        .glass{background:rgba(30,41,59,.5);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
+        .grad{background:linear-gradient(135deg,#1e3a8a,#1e40af,#1d4ed8)}
+        h1,h2,h3{font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-0.02em}
+    </style>
+</head>
+<body>
+<nav class="fixed w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="/" class="flex items-center gap-2">
+            <div class="w-12 h-12 grad rounded-lg flex items-center justify-center font-black text-2xl italic border-2 border-white/20">77</div>
+            <div><span class="font-black text-xl italic uppercase">Car Service</span><br><span class="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">Padrão Concessionária</span></div>
+        </a>
+        <a href="https://wa.me/5531994127651" class="btn-wp px-5 py-2.5 rounded-full font-bold text-xs flex items-center gap-2"><i class="fab fa-whatsapp"></i> AGENDAR</a>
+    </div>
+</nav>
+
+<section class="pt-32 pb-16 grad text-center">
+    <div class="max-w-5xl mx-auto px-4">
+        <p class="text-blue-200 text-xs font-bold uppercase tracking-[0.3em] mb-4">Serviço Especializado</p>
+        <h1 class="text-4xl md:text-6xl leading-tight mb-6">Revisão Preventiva em <span class="text-yellow-300">Belo Horizonte</span></h1>
+        <p class="text-lg text-blue-100 max-w-2xl mx-auto">Check-list digital completo conforme manual de fábrica. Peças originais e atendimento com hora marcada.</p>
+    </div>
+</section>
+
+<section class="py-20 bg-slate-900">
+    <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-12">
+        <div>
+            <h2 class="text-3xl mb-6">O Que Inclui Nossa <span class="text-blue-500">Revisão</span></h2>
+            <div class="w-20 h-1 bg-blue-600 mb-8"></div>
+            <ul class="space-y-4">
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Troca de óleo e filtros (motor, ar, combustível, cabine)</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Inspeção completa de fluidos</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Check-up de freios, pastilhas e discos</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Verificação de suspensão e amortecedores</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Diagnóstico eletrônico com scanner</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Check-list digital enviado por WhatsApp</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Teste de bateria e sistema elétrico</li>
+                <li class="flex gap-3"><span class="text-blue-500 text-xl">✅</span>Ducha e higienização na entrega</li>
+            </ul>
+        </div>
+        <div class="glass p-8 rounded-2xl flex flex-col justify-center">
+            <h3 class="text-2xl mb-4">Por que fazer revisão preventiva?</h3>
+            <ul class="space-y-3 text-slate-400">
+                <li>✅ Mantém a garantia de fábrica</li>
+                <li>✅ Economiza em reparos corretivos caros</li>
+                <li>✅ Preserva o valor de revenda</li>
+                <li>✅ Garante a segurança da sua família</li>
+                <li>✅ Reduz consumo de combustível</li>
+            </ul>
+            <a href="https://wa.me/5531994127651" class="btn-wp mt-8 px-8 py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl"><i class="fab fa-whatsapp text-2xl"></i> AGENDAR MINHA REVISÃO</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-slate-950 text-center">
+    <div class="max-w-5xl mx-auto px-4">
+        <h2 class="text-3xl mb-4">Atendemos Todas as <span class="text-blue-500">Marcas</span></h2>
+        <div class="h-1 w-16 bg-blue-600 mx-auto mb-10"></div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-4 text-xs font-bold uppercase tracking-widest text-slate-500">
+            <span>Honda</span><span>Toyota</span><span>VW</span><span>Chevrolet</span><span>Fiat</span><span>Hyundai</span>
+            <span>Jeep</span><span>Nissan</span><span>Renault</span><span>Ford</span><span>Mitsubishi</span><span>+ outras</span>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-slate-900 text-center">
+    <div class="max-w-2xl mx-auto px-4">
+        <h3 class="text-2xl mb-4">Pronto para cuidar do seu carro?</h3>
+        <a href="https://wa.me/5531994127651" class="btn-wp px-10 py-5 rounded-2xl font-black text-lg inline-flex items-center gap-3 shadow-xl"><i class="fab fa-whatsapp text-2xl"></i> FALAR NO WHATSAPP</a>
+    </div>
+</section>
+
+<footer class="py-12 border-t border-slate-800 bg-slate-950 text-center">
+    <a href="/" class="flex items-center justify-center gap-2 mb-6">
+        <div class="w-10 h-10 grad rounded-lg flex items-center justify-center font-black italic border border-white/20">77</div>
+        <span class="font-black text-xl italic uppercase">Car Service</span>
+    </a>
+    <p class="text-slate-500 text-sm">Rua José Júlio de Araújo, 160 — Belo Horizonte, MG</p>
+</footer>
+
+<a href="https://wa.me/5531994127651" class="fixed bottom-8 right-8 btn-wp w-16 h-16 rounded-2xl flex items-center justify-center shadow-2xl z-50 text-3xl"><i class="fab fa-whatsapp"></i></a>
+</body>
+</html>
+```
